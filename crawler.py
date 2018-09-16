@@ -15,7 +15,7 @@ import random
 import hashlib
 
 
-def crawl(root_urls, crawl_limit=10):
+def crawl(root_urls={'https://www.mst.edu'}, crawl_limit=10):
     url_counter = 0
     VISITED = set()
     FRONTIER = set()
@@ -66,5 +66,4 @@ def crawl(root_urls, crawl_limit=10):
 
 
 if __name__ == '__main__':
-    root = {'https://www.mst.edu'}
-    crawl(root, 10)
+    crawl()
