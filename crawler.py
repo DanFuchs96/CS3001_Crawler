@@ -8,6 +8,7 @@ CS3001: Data Science - Extra Homework: Web Crawler
 
 from urllib import request as reqs
 import re
+import os
 import bs4
 import time
 import random
@@ -20,6 +21,9 @@ def crawl(root_urls, crawl_limit=10):
     FRONTIER = set()
     DISCOVERED = set()
     regex_mst = re.compile(".*mst\.edu.*")
+
+    if not os.path.isdir('pages'):
+        os.mkdir('pages')
 
     for root in root_urls:
         FRONTIER.add(root)
@@ -44,7 +48,7 @@ def crawl(root_urls, crawl_limit=10):
 
         if response.info().get('Content-Type')[:9] == 'text/html':
             data = response.read().decode()
-            output_file = open('pages/' + hashlib.md5(data.encode('utf-8')).hexdigest() + '.html', 'w+')
+            output_file = open('pages/' + hashlib.md5(data.encode()).hexdigest() + '.html', 'w+', encoding='utf-8')
             output_file.write(data)
             output_file.close()
             soup = bs4.BeautifulSoup(data, 'lxml')
